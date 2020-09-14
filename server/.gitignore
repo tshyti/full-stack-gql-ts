@@ -117,3 +117,5 @@ dist
 
 #type-orm
 .tomg-config
+
+*.env
