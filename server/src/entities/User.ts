@@ -17,10 +17,10 @@ export class User {
   password: string;
 
   @Column("nvarchar", { name: "Name", nullable: true, length: 50 })
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   name: string | null;
 
   @Column("nvarchar", { name: "Surname", nullable: true, length: 50 })
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   surname: string | null;
 }

@@ -1,12 +1,19 @@
-import { User } from "src/entities/User";
-import { RegisterUserDTO } from "src/types/users";
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { User } from "../entities/User";
+import { UsersService } from "../services/usersService";
+import { RegisterUserDTO } from "../types/users";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
 @Resolver()
 export class UsersResolver {
-  // @Mutation(() => User)
-  // async register(@Arg("options") options: RegisterUserDTO): User {
-  //   await
-  //   return {};
-  // }
+  readonly usersService: UsersService;
+
+  constructor() {
+    this.usersService = new UsersService();
+  }
+
+  @Mutation(() => User)
+  async register(@Arg("options") options: RegisterUserDTO): Promise<User> {
+    const registeredUser = await this.usersService.createUser(options);
+    return registeredUser;
+  }
 }

@@ -1,6 +1,24 @@
 import argon2 from "argon2";
-import { RegisterUserDTO } from "src/types/users";
+import { User } from "../entities/User";
+import { RegisterUserDTO } from "../types/users";
+import { getRepository, Repository } from "typeorm";
 
-export async function createUser(registerUserDto: RegisterUserDTO) {
-  const hashedPassword = await argon2.hash(registerUserDto.password);
+export class UsersService {
+  userRepo: Repository<User>;
+
+  constructor() {
+    this.userRepo = getRepository(User);
+  }
+
+  async createUser({ email, password }: RegisterUserDTO) {
+    const hashedPassword = await argon2.hash(password);
+    const userObj = await this.userRepo.create({
+      email,
+      password: hashedPassword
+    });
+
+    const insertedUser = await this.userRepo.save(userObj);
+
+    return insertedUser;
+  }
 }

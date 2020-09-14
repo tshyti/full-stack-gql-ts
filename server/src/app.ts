@@ -4,25 +4,18 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { AuthenticationResolver } from "./resolvers/authenticationResolver";
-import { createConnection } from "typeorm";
+import { UsersResolver } from "./resolvers/usersResolver";
+
+import { configTypeOrm } from "./config/typeormConfig";
 
 const main = async () => {
   const app = express();
 
-  console.log(process.env.DB_IP);
-
-  await createConnection({
-    type: "mssql",
-    host: process.env.DB_IP,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    username: process.env.DB_USERNAME,
-    logging: true
-  });
+  await configTypeOrm();
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [AuthenticationResolver],
+      resolvers: [AuthenticationResolver, UsersResolver],
       validate: false
     })
   });
