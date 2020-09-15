@@ -21,4 +21,9 @@ export class UsersService {
 
     return insertedUser;
   }
+
+  async getUserById(id: number) {
+    const user = await this.userRepo.findOne(id);
+    return user;
+  }
 }
