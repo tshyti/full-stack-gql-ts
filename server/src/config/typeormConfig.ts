@@ -1,4 +1,4 @@
-import { User } from "../entities/User";
+import { User } from "entities/User";
 import { createConnection } from "typeorm";
 
 export async function configTypeOrm() {

@@ -1,6 +1,6 @@
-import { User } from "../entities/User";
-import { UsersService } from "../services/usersService";
-import { RegisterUserDTO } from "../types/users";
+import { User } from "entities/User";
+import { UsersService } from "services/usersService";
+import { RegisterUserDTO } from "types/users";
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
 
 @Resolver()

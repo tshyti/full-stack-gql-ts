@@ -3,10 +3,10 @@ import "dotenv-safe/config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { AuthenticationResolver } from "./resolvers/authenticationResolver";
-import { UsersResolver } from "./resolvers/usersResolver";
+import { AuthenticationResolver } from "resolvers/authenticationResolver";
+import { UsersResolver } from "resolvers/usersResolver";
 
-import { configTypeOrm } from "./config/typeormConfig";
+import { configTypeOrm } from "config/typeormConfig";
 
 const main = async () => {
   const app = express();
