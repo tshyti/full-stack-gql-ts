@@ -3,12 +3,9 @@ import "dotenv-safe/config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { AuthenticationResolver } from "resolvers/authenticationResolver";
-import { UsersResolver } from "resolvers/usersResolver";
 
-import { configTypeOrm } from "config/typeormConfig";
+import configTypeOrm from "config/configTypeOrm";
 import Container from "typedi";
-import { RolesResolver } from "resolvers/rolesResolver";
 
 const main = async () => {
   const app = express();
@@ -17,7 +14,10 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [AuthenticationResolver, UsersResolver, RolesResolver],
+      resolvers: [
+        __dirname + "/modules/**/*Resolver.{ts,js}",
+        __dirname + "/resolvers/**/*.{ts,js}"
+      ],
       validate: false,
       container: Container
     })

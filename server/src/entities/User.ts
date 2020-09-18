@@ -47,6 +47,6 @@ export class User {
 
   @ManyToOne(() => Role, (roles) => roles.users)
   @JoinColumn([{ name: "RoleId", referencedColumnName: "id" }])
-  @Field()
+  @Field(() => Role)
   role: Role;
 }
