@@ -1,7 +1,11 @@
+import { Role } from "entities/Role";
 import { User } from "entities/User";
-import { createConnection } from "typeorm";
+import Container from "typedi";
+import { createConnection, useContainer } from "typeorm";
 
 export async function configTypeOrm() {
+  useContainer(Container);
+
   await createConnection({
     type: "mssql",
     host: process.env.DB_IP,
@@ -9,6 +13,6 @@ export async function configTypeOrm() {
     password: process.env.DB_PASSWORD,
     username: process.env.DB_USERNAME,
     logging: true,
-    entities: [User]
+    entities: [User, Role]
   });
 }

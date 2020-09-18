@@ -1,5 +1,14 @@
 import { Field, Int, ObjectType } from "type-graphql";
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  DefaultNamingStrategy,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn
+} from "typeorm";
+import { Role } from "./Role";
 
 @Index("PK_Users", ["id"], { unique: true })
 @Entity("Users", { schema: "dbo" })
@@ -23,4 +32,21 @@ export class User {
   @Column("nvarchar", { name: "Surname", nullable: true, length: 50 })
   @Field(() => String, { nullable: true })
   surname: string | null;
+
+  @Column("datetime2", { name: "Birthdate", nullable: true })
+  @Field(() => Date, { nullable: true })
+  birthdate: Date | null;
+
+  @Column("datetime2", { name: "CreatedOn", default: () => "getdate()" })
+  @Field()
+  createdOn: Date;
+
+  @Column("datetime2", { name: "UpdatedOn", default: () => "getdate()" })
+  @Field()
+  updatedOn: Date;
+
+  @ManyToOne(() => Role, (roles) => roles.users)
+  @JoinColumn([{ name: "RoleId", referencedColumnName: "id" }])
+  @Field()
+  role: Role;
 }

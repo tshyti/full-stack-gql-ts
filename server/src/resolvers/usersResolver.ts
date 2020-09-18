@@ -2,14 +2,12 @@ import { User } from "entities/User";
 import { UsersService } from "services/usersService";
 import { RegisterUserDTO } from "types/users";
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
+import { Inject } from "typedi";
 
 @Resolver()
 export class UsersResolver {
+  @Inject()
   readonly usersService: UsersService;
-
-  constructor() {
-    this.usersService = new UsersService();
-  }
 
   @Mutation(() => User)
   async register(@Arg("options") options: RegisterUserDTO): Promise<User> {

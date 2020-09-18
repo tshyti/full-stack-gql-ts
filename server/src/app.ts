@@ -7,6 +7,8 @@ import { AuthenticationResolver } from "resolvers/authenticationResolver";
 import { UsersResolver } from "resolvers/usersResolver";
 
 import { configTypeOrm } from "config/typeormConfig";
+import Container from "typedi";
+import { RolesResolver } from "resolvers/rolesResolver";
 
 const main = async () => {
   const app = express();
@@ -15,8 +17,9 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [AuthenticationResolver, UsersResolver],
-      validate: false
+      resolvers: [AuthenticationResolver, UsersResolver, RolesResolver],
+      validate: false,
+      container: Container
     })
   });
 

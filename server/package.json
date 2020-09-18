@@ -30,6 +30,8 @@
     "graphql": "^15.3.0",
     "mssql": "^6.2.1",
     "type-graphql": "^1.0.0",
-    "typeorm": "^0.2.26"
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.26",
+    "typeorm-typedi-extensions": "^0.2.3"
   }
 }
