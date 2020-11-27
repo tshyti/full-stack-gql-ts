@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "graphql": "^15.3.0",
     "mssql": "^6.2.1",
+    "pg": "^8.5.1",
     "type-graphql": "^1.0.0",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.26",

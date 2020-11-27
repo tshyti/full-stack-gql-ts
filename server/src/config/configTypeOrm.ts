@@ -5,7 +5,7 @@ export default async function configTypeOrm() {
   useContainer(Container);
 
   await createConnection({
-    type: "mssql",
+    type: "postgres",
     host: process.env.DB_IP,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
