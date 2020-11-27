@@ -1,4 +1,4 @@
-import { User } from "entities/User";
+import { Users } from "entities/Users";
 import { UsersService } from "services/usersService";
 import { RegisterUserDTO } from "types/users";
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
@@ -9,13 +9,13 @@ export class UsersResolver {
   @Inject()
   readonly usersService: UsersService;
 
-  @Mutation(() => User)
-  async register(@Arg("options") options: RegisterUserDTO): Promise<User> {
+  @Mutation(() => Users)
+  async register(@Arg("options") options: RegisterUserDTO): Promise<Users> {
     return this.usersService.createUser(options);
   }
 
-  @Query(() => User, { nullable: true })
-  async user(@Arg("id", () => Int) id: number): Promise<User | undefined> {
+  @Query(() => Users, { nullable: true })
+  async user(@Arg("id", () => Int) id: number): Promise<Users | undefined> {
     return this.usersService.getUserById(id);
   }
 }
