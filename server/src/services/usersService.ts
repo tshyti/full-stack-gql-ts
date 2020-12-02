@@ -23,7 +23,9 @@ export class UsersService {
   }
 
   async getUserById(id: number) {
-    const user = await this.userRepo.findOne(id, { relations: ["createdBy"] });
+    const user = await this.userRepo.findOne(id, {
+      relations: ["createdBy", "usersRoles"]
+    });
     return user;
   }
 }

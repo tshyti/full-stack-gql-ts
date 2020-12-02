@@ -6,10 +6,11 @@ import {
   OneToMany,
   PrimaryGeneratedColumn
 } from "typeorm";
-import { UserRoles } from "./UserRoles";
+import { UsersRoles } from "./UsersRoles";
 
 @Index("Roles_pkey", ["id"], { unique: true })
 @Entity("Roles", { schema: "public" })
+@ObjectType()
 export class Roles {
   @PrimaryGeneratedColumn({ type: "integer", name: "Id" })
   @Field(() => Int)
@@ -21,6 +22,6 @@ export class Roles {
   @Column("text", { name: "Name" })
   name: string;
 
-  @OneToMany(() => UserRoles, (userRoles) => userRoles.role)
-  userRoles: UserRoles[];
+  @OneToMany(() => UsersRoles, (usersRoles) => usersRoles.role)
+  usersRoles: UsersRoles[];
 }

@@ -7,6 +7,8 @@ import { buildSchema } from "type-graphql";
 import configTypeOrm from "config/configTypeOrm";
 import Container from "typedi";
 
+const { SERVER_PORT } = process.env;
+
 const main = async () => {
   const app = express();
 
@@ -25,8 +27,8 @@ const main = async () => {
 
   apolloServer.applyMiddleware({ app });
 
-  app.listen(process.env.SERVER_PORT, () => {
-    console.log("server started on localhost:4000");
+  app.listen(SERVER_PORT, () => {
+    console.log(`server started on port ${SERVER_PORT}`);
   });
 };
 

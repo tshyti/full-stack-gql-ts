@@ -8,7 +8,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn
 } from "typeorm";
-import { UserRoles } from "./UserRoles";
+import { Roles } from "./Roles";
+import { UsersRoles } from "./UsersRoles";
 
 @Index("fki_fk_created_by_users", ["createdById"], {})
 @Index("Users_pkey", ["id"], { unique: true })
@@ -43,16 +44,14 @@ export class Users {
   createdById: number;
 
   @Column("text", { name: "Passsword" })
-  @Field()
   passsword: string;
 
-  @OneToMany(() => UserRoles, (userRoles) => userRoles.user)
-  @Field(() => [UserRoles])
-  userRoles: UserRoles[];
+  @OneToMany(() => UsersRoles, (usersRoles) => usersRoles.user)
+  usersRoles: UsersRoles[];
 
-  @OneToMany(() => UserRoles, (userRoles) => userRoles.createdBy)
-  @Field(() => [UserRoles])
-  createdUserRoles: UserRoles[];
+  @OneToMany(() => UsersRoles, (usersRoles) => usersRoles.createdBy)
+  @Field(() => [UsersRoles])
+  createdUsersRoles: UsersRoles[];
 
   @ManyToOne(() => Users, (users) => users.createdUsers)
   @JoinColumn([{ name: "CreatedById", referencedColumnName: "id" }])
@@ -62,4 +61,9 @@ export class Users {
   @OneToMany(() => Users, (users) => users.createdBy)
   @Field(() => [Users])
   createdUsers: Users[];
+
+  @Field(() => [Roles])
+  get roles(): Roles[] {
+    return this.usersRoles?.map((usersRoles) => usersRoles.role);
+  }
 }

@@ -11,6 +11,7 @@ export default async function configTypeOrm() {
     password: process.env.DB_PASSWORD,
     username: process.env.DB_USERNAME,
     logging: true,
-    entities: ["entities/**/*.ts", "dist/entities/**/*.js"]
+    entities: ["entities/**/*.ts", "dist/entities/**/*.js"],
+    schema: "public"
   });
 }
