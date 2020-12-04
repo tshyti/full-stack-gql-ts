@@ -22,7 +22,8 @@ const main = async () => {
       ],
       validate: false,
       container: Container
-    })
+    }),
+    tracing: true
   });
 
   apolloServer.applyMiddleware({ app });

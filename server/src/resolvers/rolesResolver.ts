@@ -1,15 +1,18 @@
 import { Roles } from "entities/Roles";
-import { RolesService } from "services/rolesService";
 import { Query, Resolver } from "type-graphql";
 import { Inject } from "typedi";
+import { Repository } from "typeorm";
+import { InjectRepository } from "typeorm-typedi-extensions/decorators/InjectRepository";
 
 @Resolver()
 export class RolesResolver {
-  @Inject()
-  rolesService: RolesService;
+  @InjectRepository(Roles)
+  rolesRepo: Repository<Roles>;
 
-  // @Query(() => [Roles])
-  // roles(): Promise<Roles[]> {
-  //   return this.rolesService.getAll();
-  // }
+  @Query(() => [Roles])
+  async roles(): Promise<Roles[]> {
+    const roles = await this.rolesRepo.find();
+
+    return roles;
+  }
 }
