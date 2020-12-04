@@ -8,7 +8,8 @@ import {
   Mutation,
   Query,
   Resolver,
-  Info
+  Info,
+  Root
 } from "type-graphql";
 import { Inject } from "typedi";
 import argon2d from "argon2";
@@ -45,5 +46,10 @@ export class UsersResolver {
       relations: ["createdBy", "usersRoles", "usersRoles.role"]
     });
     return usera;
+  }
+
+  @FieldResolver()
+  roles(@Root() user: Users): Roles[] {
+    return user.usersRoles?.map((usersRoles) => usersRoles.role);
   }
 }

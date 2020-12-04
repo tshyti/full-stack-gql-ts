@@ -61,9 +61,4 @@ export class Users {
   @OneToMany(() => Users, (users) => users.createdBy)
   @Field(() => [Users])
   createdUsers: Users[];
-
-  @Field(() => [Roles])
-  get roles(): Roles[] {
-    return this.usersRoles?.map((usersRoles) => usersRoles.role);
-  }
 }
