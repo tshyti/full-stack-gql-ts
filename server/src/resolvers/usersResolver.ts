@@ -8,13 +8,13 @@ import {
   Mutation,
   Query,
   Resolver,
-  Info,
   Root
 } from "type-graphql";
 import argon2d from "argon2";
 import { InjectRepository } from "typeorm-typedi-extensions/decorators/InjectRepository";
 import { Repository } from "typeorm";
 import { Roles } from "entities/Roles";
+import GQLContext from "types/graphql/GQLContext";
 
 @Resolver(() => Users)
 export class UsersResolver {
@@ -44,7 +44,16 @@ export class UsersResolver {
   }
 
   @FieldResolver()
-  roles(@Root() _: Users): Roles[] {
-    return [];
+  roles(@Root() user: Users): Roles[] {
+    return user.usersRoles?.map((usersRoles) => usersRoles.role);
+  }
+
+  @FieldResolver(() => Users, { nullable: true })
+  async createdBy(@Root() user: Users, @Ctx() { loaders }: GQLContext) {
+    try {
+      return await loaders.userLoader.load(user.createdById);
+    } catch (error) {
+      return null;
+    }
   }
 }
