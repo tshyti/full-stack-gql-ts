@@ -61,4 +61,7 @@ export class Users {
   @OneToMany(() => Users, (users) => users.createdBy)
   @Field(() => [Users])
   createdUsers: Users[];
+
+  @Field(() => [Roles])
+  roles: Roles[];
 }

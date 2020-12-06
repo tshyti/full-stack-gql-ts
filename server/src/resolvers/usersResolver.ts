@@ -1,5 +1,5 @@
 import { Users } from "entities/Users";
-import { RegisterUserDTO } from "types/users";
+import { RegisterUser } from "types/inputTypes/userInputTypes";
 import {
   Arg,
   Ctx,
@@ -15,9 +15,7 @@ import { Inject } from "typedi";
 import argon2d from "argon2";
 import { InjectRepository } from "typeorm-typedi-extensions/decorators/InjectRepository";
 import { Repository } from "typeorm";
-import { UsersRoles } from "entities/UsersRoles";
 import { Roles } from "entities/Roles";
-import { GraphQLResolveInfo } from "graphql";
 
 @Resolver(() => Users)
 export class UsersResolver {
@@ -25,7 +23,7 @@ export class UsersResolver {
   userRepo: Repository<Users>;
 
   @Mutation(() => Users)
-  async register(@Arg("options") options: RegisterUserDTO): Promise<Users> {
+  async register(@Arg("options") options: RegisterUser): Promise<Users> {
     const hashedPassword = await argon2d.hash(options.password);
     const userObj = await this.userRepo.create({
       email: options.email,
@@ -38,18 +36,16 @@ export class UsersResolver {
   }
 
   @Query(() => Users, { nullable: true })
-  async user(
-    @Arg("id", () => Int) id: number,
-    @Info() info: GraphQLResolveInfo
-  ): Promise<Users | undefined> {
-    const usera = await this.userRepo.findOne(id, {
+  async user(@Arg("id", () => Int) id: number): Promise<Users | undefined> {
+    const user = await this.userRepo.findOne(id, {
       relations: ["createdBy", "usersRoles", "usersRoles.role"]
     });
-    return usera;
+
+    return user;
   }
 
   @FieldResolver()
-  roles(@Root() user: Users): Roles[] {
-    return user.usersRoles?.map((usersRoles) => usersRoles.role);
+  roles(@Root() _: Users): Roles[] {
+    return [];
   }
 }
