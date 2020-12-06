@@ -11,7 +11,6 @@ import {
   Info,
   Root
 } from "type-graphql";
-import { Inject } from "typedi";
 import argon2d from "argon2";
 import { InjectRepository } from "typeorm-typedi-extensions/decorators/InjectRepository";
 import { Repository } from "typeorm";
