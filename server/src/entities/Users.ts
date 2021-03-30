@@ -39,28 +39,11 @@ export class Users {
   @Field(() => String, { nullable: true })
   lastname: string | null;
 
-  @Column("integer", { name: "CreatedById", nullable: true })
-  @Field(() => Int, { nullable: true })
-  createdById: number;
-
   @Column("text", { name: "Passsword" })
   passsword: string;
 
   @OneToMany(() => UsersRoles, (usersRoles) => usersRoles.user)
   usersRoles: UsersRoles[];
-
-  @OneToMany(() => UsersRoles, (usersRoles) => usersRoles.createdBy)
-  @Field(() => [UsersRoles])
-  createdUsersRoles: UsersRoles[];
-
-  @ManyToOne(() => Users, (users) => users.createdUsers)
-  @JoinColumn([{ name: "CreatedById", referencedColumnName: "id" }])
-  @Field(() => Users, { nullable: true })
-  createdBy: Users | null;
-
-  @OneToMany(() => Users, (users) => users.createdBy)
-  @Field(() => [Users])
-  createdUsers: Users[];
 
   @Field(() => [Roles])
   roles: Roles[];

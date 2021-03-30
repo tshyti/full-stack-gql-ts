@@ -24,11 +24,7 @@ export class UsersRoles {
   @JoinColumn([{ name: "RoleCode", referencedColumnName: "code" }])
   role: Roles;
 
-  @ManyToOne(() => Users, (users) => users.usersRoles)
-  @JoinColumn([{ name: "CreatedById", referencedColumnName: "id" }])
-  createdBy: Users;
-
-  @ManyToOne(() => Users, (users) => users.createdUsersRoles)
+  @ManyToOne(() => Users, (users) => users.roles)
   @JoinColumn([{ name: "UserId", referencedColumnName: "id" }])
   user: Users;
 }

@@ -48,12 +48,4 @@ export class UsersResolver {
     return user.usersRoles?.map((usersRoles) => usersRoles.role);
   }
 
-  @FieldResolver(() => Users, { nullable: true })
-  async createdBy(@Root() user: Users, @Ctx() { loaders }: GQLContext) {
-    try {
-      return await loaders.usersLoader.load(user.createdById);
-    } catch (error) {
-      return null;
-    }
-  }
 }
