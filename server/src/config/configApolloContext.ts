@@ -1,5 +1,5 @@
 import { ApolloServerExpressConfig } from "apollo-server-express";
-import userLoader from "loaders/UserLoader";
+import usersLoader from "loaders/usersLoader";
 import GQLContext from "types/graphql/GQLContext";
 
 export default function configApolloContext(
@@ -7,7 +7,7 @@ export default function configApolloContext(
 ): GQLContext {
   return {
     loaders: {
-      userLoader: userLoader()
+      usersLoader: usersLoader()
     }
   };
 }

@@ -1,7 +1,7 @@
-import userLoader from "loaders/userLoader";
+import userLoader from "loaders/usersLoader";
 
 export default interface GQLContext {
   loaders: {
-    userLoader: ReturnType<typeof userLoader>;
+    usersLoader: ReturnType<typeof userLoader>;
   };
 }

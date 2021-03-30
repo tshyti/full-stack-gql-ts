@@ -11,7 +11,7 @@ import {
   Root
 } from "type-graphql";
 import argon2d from "argon2";
-import { InjectRepository } from "typeorm-typedi-extensions/decorators/InjectRepository";
+import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
 import { Roles } from "entities/Roles";
 import GQLContext from "types/graphql/GQLContext";
@@ -51,7 +51,7 @@ export class UsersResolver {
   @FieldResolver(() => Users, { nullable: true })
   async createdBy(@Root() user: Users, @Ctx() { loaders }: GQLContext) {
     try {
-      return await loaders.userLoader.load(user.createdById);
+      return await loaders.usersLoader.load(user.createdById);
     } catch (error) {
       return null;
     }
