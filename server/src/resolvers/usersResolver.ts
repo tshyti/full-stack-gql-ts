@@ -11,15 +11,17 @@ import {
   Root
 } from "type-graphql";
 import argon2d from "argon2";
-import { InjectRepository } from "typeorm-typedi-extensions";
-import { Repository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { Roles } from "entities/Roles";
 import GQLContext from "types/graphql/GQLContext";
 
 @Resolver(() => Users)
 export class UsersResolver {
-  @InjectRepository(Users)
   userRepo: Repository<Users>;
+  
+  constructor() {
+    this.userRepo = getRepository(Users);
+  }
 
   @Mutation(() => Users)
   async register(@Arg("options") options: RegisterUser): Promise<Users> {
@@ -37,7 +39,7 @@ export class UsersResolver {
   @Query(() => Users, { nullable: true })
   async user(@Arg("id", () => Int) id: number): Promise<Users | undefined> {
     const user = await this.userRepo.findOne(id, {
-      relations: ["createdBy", "usersRoles", "usersRoles.role"]
+      relations: ["usersRoles", "usersRoles.role"]
     });
 
     return user;

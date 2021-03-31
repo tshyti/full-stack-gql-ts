@@ -11,7 +11,6 @@ import {
 import { Roles } from "./Roles";
 import { UsersRoles } from "./UsersRoles";
 
-@Index("fki_fk_created_by_users", ["createdById"], {})
 @Index("Users_pkey", ["id"], { unique: true })
 @Entity("Users", { schema: "public" })
 @ObjectType()

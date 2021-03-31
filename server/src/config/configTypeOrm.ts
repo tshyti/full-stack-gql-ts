@@ -1,9 +1,6 @@
-import Container from "typedi";
 import { createConnection, useContainer } from "typeorm";
 
 export default async function configTypeOrm() {
-  useContainer(Container);
-
   await createConnection({
     type: "postgres",
     host: process.env.DB_IP,

@@ -5,7 +5,6 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 
 import configTypeOrm from "config/configTypeOrm";
-import Container from "typedi";
 import configApolloContext from "config/configApolloContext";
 
 const { SERVER_PORT } = process.env;
@@ -20,7 +19,6 @@ const main = async () => {
       resolvers: [__dirname + "/resolvers/**/*.{ts,js}"],
 
       validate: false,
-      container: Container
     }),
     context: configApolloContext,
     tracing: true

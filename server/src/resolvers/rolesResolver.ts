@@ -1,14 +1,16 @@
 import { Roles } from "entities/Roles";
 import { Users } from "entities/Users";
 import { Ctx, FieldResolver, Query, Resolver, Root } from "type-graphql";
-import { Repository } from "typeorm";
-import { InjectRepository } from "typeorm-typedi-extensions";
+import { getRepository, Repository } from "typeorm";
 import GQLContext from "types/graphql/GQLContext";
 
 @Resolver(() => Roles)
 export class RolesResolver {
-  @InjectRepository(Roles)
   rolesRepo: Repository<Roles>;
+  
+  constructor() {
+    this.rolesRepo = getRepository(Roles)
+  }
 
   @Query(() => [Roles])
   async roles(): Promise<Roles[]> {
