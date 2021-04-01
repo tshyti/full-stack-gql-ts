@@ -36,6 +36,7 @@
 		"@typescript-eslint/no-shadow": ["error"],
 		"no-underscore-dangle": "off",
 		"class-methods-use-this": "off",
-		"prefer-template": "off"
+		"prefer-template": "off",
+		"@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
 	}
 }

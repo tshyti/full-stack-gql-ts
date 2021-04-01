@@ -1,4 +1,4 @@
-import { createConnection, useContainer } from 'typeorm';
+import { createConnection } from 'typeorm';
 
 export default async function configTypeOrm() {
 	await createConnection({
@@ -8,7 +8,12 @@ export default async function configTypeOrm() {
 		password: process.env.DB_PASSWORD,
 		username: process.env.DB_USERNAME,
 		logging: true,
-		entities: ['entities/**/*.ts', 'dist/entities/**/*.js'],
 		schema: 'public',
+		entities: ['entities/**/*.ts', 'dist/entities/**/*.js'],
+		migrationsTableName: 'TypeOrmMigrations',
+		migrations: ['../migrations/*.js'],
+		cli: {
+			migrationsDir: 'migrations',
+		},
 	});
 }

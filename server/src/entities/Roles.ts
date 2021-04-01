@@ -18,6 +18,7 @@ export class Roles {
 	id: number;
 
 	@Column('text', { name: 'Code' })
+	@Index('Roles_code', ['code'], { unique: true })
 	@Field()
 	code: string;
 
